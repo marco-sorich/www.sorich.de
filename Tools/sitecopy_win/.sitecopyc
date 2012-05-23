@@ -1,0 +1,14 @@
+site sorich
+	server	    www.sorich.de
+	username	www.sorich.de
+	password	09s@06s.W+
+	local		output
+	remote	    /newpage
+	protocol	ftp
+	permissions	ignore
+	exclude 	/.svn
+    exclude     /images/.svn
+    exclude     /js/.svn
+    exclude     /style/.svn
+	tempupload
+	state 	    timesize

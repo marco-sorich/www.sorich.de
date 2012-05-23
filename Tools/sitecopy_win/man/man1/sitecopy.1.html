@@ -1,0 +1,1204 @@
+<HTML>
+    <HEAD>
+        <TITLE>Manpage of sitecopy</TITLE>
+        <STYLE TYPE="text/css">
+            body { font-family: Arial, Helvetica, sans-serif ; }
+        </STYLE>
+</HEAD><BODY>
+<H1>sitecopy</H1>
+Section: User Manuals (1)<BR>Updated: June 2001<BR><A HREF="#index">Index</A>
+<A HREF="http://localhost/cgi-bin/man/man2html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+sitecopy - maintain remote copies of web sites
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>sitecopy [options] [operation mode] </B>
+
+<I>sitename</I>
+
+<B>...</B>
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>sitecopy</I>
+
+is for copying locally stored web sites to remote web servers.  A
+single command will upload files to the server which have changed
+locally, and delete files from the server which have been removed
+locally, to keep the remote site synchronized with the local site.
+The aim is to remove the hassle of uploading and deleting individual
+files using an FTP client.  sitecopy will also optionally try to spot
+files you move locally, and move them remotely.
+<P>
+FTP, WebDAV and other HTTP-based authoring servers (for instance,
+AOLserver and Netscape Enterprise) are supported.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>GETTING STARTED</H2>
+
+<P>
+This section covers how to start maintaining a web site using
+sitecopy.  After introducing the basics, two situations are covered:
+first, where you have already upload the site to the remote server;
+second, where you haven't.  Lastly, normal site maintenance activities
+are explained.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H3>Introducing the Basics</H3>
+
+<P>
+If you have not already done so, you need to create an rcfile, which
+will store information about the sites you wish to administer. You also
+need to create a storage directory, which sitecopy uses to record the
+state of the files on each of the remote sites. The rcfile and storage
+directory must both be accessible only by you - sitecopy will not run
+otherwise.  To create the storage directory with the correct
+permissions, use the command
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>mkdir -m 700 .sitecopy</B>
+
+<BR>
+
+from your home directory. To create the rcfile, use the commands<BR>
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>touch .sitecopyrc</B>
+
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>chmod 600 .sitecopyrc</B>
+
+<BR>
+
+from your home directory. Once this is done, edit the rcfile to enter<BR>
+your site details as shown in the CONFIGURATION section.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H3>Existing Remote Site</H3>
+
+<P>
+If you have already uploaded the site to the remote server, ensure
+your local files are synchronized with the remote files. Then, run
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --catchup sitename</B>
+
+<BR>
+
+where sitename is the name of the site you used after the <BR>
+<B>site</B>
+
+keyword in the rcfile.
+<P>
+If you do not have a local copy of the remote site, then you can use
+<B>fetch mode</B>
+
+to discover what is on the remote site, and
+<B>synchronize mode</B>
+
+to download it. Fetch mode works well for WebDAV servers, and might
+work if you're lucky for FTP servers. Run
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --fetch sitename</B>
+
+<BR>
+
+to fetch the site - if this succeeds, then run<BR>
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --synch sitename</B>
+
+<BR>
+
+to download a local copy.  Do NOT do this if you already have a <BR>
+local copy of your site.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<H3>New Remote Site</H3>
+
+<P>
+Ensure that the root directory of the site has been created on the
+server by the server administrator. Run
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --init sitename</B>
+
+<BR>
+
+where sitename is the name of the site you used after the <BR>
+<B>site</B>
+
+keyword in the rcfile.
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<H3>Site Maintenance</H3>
+
+<P>
+After setting up the site as given in one of the two above sections,
+you can now start editing your local files as normal. When you have
+finished a set of changes, and you want to update the remote copy of
+the site, run:
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --update sitename</B>
+
+<BR>
+
+and all the changed files will be uploaded to the server. Any files<BR>
+you delete locally will be deleted remotely too, unless the
+<B>nodelete </B>
+
+option is specified in the rcfile. If you move any files between
+directories, the remote files will be deleted from the server then
+uploaded again unless you specify the
+<B>checkmoved</B>
+
+option in the rcfile.
+<P>
+At any time, if you wish to see what changes you have made to the
+local site since the last update, you can run
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy sitename</B>
+
+<BR>
+
+which will display the list of differences.<BR>
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H3>Synchronization Problems</H3>
+
+<P>
+In some circumstances, the actual files which make up the remote site
+will be different from what sitecopy
+<I>thinks</I>
+
+is on the remote site. This can happen, for instance, if the
+connection to the server is broken during an update. When this
+situation arises,
+<B>Fetch Mode</B>
+
+should be used to fetch the list of files making up the site from the
+remote server.
+<P>
+<A NAME="lbAK">&nbsp;</A>
+<H2>INVOCATION</H2>
+
+<P>
+In normal operation, specify a 
+<I>single</I>
+
+operation mode, followed by any options you choose, then one or more
+site names. For instance,
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --update --quiet mainsite anothersite</B>
+
+<BR>
+
+will quietly update the sites named 'mainsite' and 'anothersite'.<BR>
+<P>
+<A NAME="lbAL">&nbsp;</A>
+<H2>OPERATION MODES</H2>
+
+<DL COMPACT>
+<DT>-l, --list<DD>
+<B>List Mode</B>
+
+- produces a listing of all the differences between the
+local files and the remote copy for the specified sites.
+<DT>-ll, --flatlist<DD>
+<B>Flat list Mode</B>
+
+- like list mode, except the output produced is suitable for 
+parsing by an external script or program. An AWK script,
+<B>changes.awk.</B>
+
+is provided which produces an HTML page from this mode.
+<DT>-u, --update<DD>
+<B>Update Mode</B>
+
+- updates the remote copy of the specified sites.
+<DT>-f, --fetch<DD>
+<B>Fetch Mode</B>
+
+- fetches the list of files from the remote server.  Note that this
+mode has only limited support in FTP - the server must accept the
+<B>MDTM</B>
+
+command, and use a Unix-style 'ls' for LIST implementation.
+<DT>-s, --synchronize<DD>
+<B>Synchronize Mode</B>
+
+- updates the 
+<I>local</I>
+
+site from the remote copy. 
+<B>WARNING:</B>
+
+This mode overwrites local files. Use with care.
+<DT>-i, --initialize<DD>
+<B>Initialization Mode</B>
+
+- initializes the sites specified - making sitecopy think there are NO
+files on the remote server.
+<DT>-c, --catchup<DD>
+<B>Catchup Mode</B>
+
+- makes sitecopy think the local site is exactly the same as the
+remote copy.
+<DT>-v, --view<DD>
+<B>View Mode</B>
+
+- displays all the site definitions from the rcfile.
+<DT>-h, --help<DD>
+Display help information.
+<DT>-V, --version<DD>
+Display version information.
+</DL>
+<A NAME="lbAM">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT>-y, --prompting<DD>
+Applicable in
+<B>Update Mode</B>
+
+only, will prompt the user for confirmation for each update
+(i.e., creating a directory, uploading a file etc.).
+<DT>-r RCFILE, --rcfile=RCFILE<DD>
+Specify an alternate run control file location.
+<DT>-p PATH, --storepath=PATH<DD>
+Specify an alternate location to use for the remote site storage directory.
+<DT>-q, --quiet<DD>
+Quiet output - display the filename only for each update performed.
+<DT>-qq, --silent<DD>
+Very quiet output - display nothing for each update performed.
+<DT>-o, --show-progress<DD>
+Applicable in 
+<B>Update Mode</B>
+
+only, displays the progress (percentage complete) of data transfer.
+<DT>-k, --keep-going<DD>
+Keep going past errors in 
+<B>Update Mode</B>
+
+or 
+<B>Synch Mode</B>
+
+<P>
+<DT>-a, --allsites<DD>
+Perform the given operation on all sites - applicable for all
+modes except
+<B>View Mode,</B>
+
+for which it has no effect.
+<DT>-d MASK, --debug=KEY[,KEY...]<DD>
+Turns on debugging.  A list of comma-separated keywords should 
+be given. Each keyword may be one of:
+<BR>
+
+<BR>&nbsp;&nbsp;socket&nbsp;&nbsp;&nbsp;&nbsp;Socket&nbsp;handling
+<BR>
+
+<BR>&nbsp;&nbsp;files&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File&nbsp;handling
+<BR>
+
+<BR>&nbsp;&nbsp;rcfile&nbsp;&nbsp;&nbsp;&nbsp;rcfile&nbsp;parser
+<BR>
+
+<BR>&nbsp;&nbsp;http&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTP&nbsp;driver
+<BR>
+
+<BR>&nbsp;&nbsp;httpbody&nbsp;&nbsp;Display&nbsp;response&nbsp;bodies&nbsp;in&nbsp;HTTP
+<BR>
+
+<BR>&nbsp;&nbsp;ftp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FTP&nbsp;driver
+<BR>
+
+<BR>&nbsp;&nbsp;xml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XML&nbsp;parsing&nbsp;information
+<BR>
+
+<BR>&nbsp;&nbsp;xmlparse&nbsp;&nbsp;Low-level&nbsp;XML&nbsp;parsing&nbsp;information
+<BR>
+
+<BR>&nbsp;&nbsp;httpauth&nbsp;&nbsp;HTTP&nbsp;authentication&nbsp;information
+<BR>
+
+<BR>&nbsp;&nbsp;cleartext&nbsp;Display&nbsp;passwords&nbsp;in&nbsp;plain&nbsp;text
+<P>
+Passwords will be obscured in the debug output unless
+the cleartext keyword is used. An example use of debugging
+is to debug FTP fetch mode:
+<P>
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>sitecopy --debug=ftp,socket --fetch sitename</B>
+
+<BR>
+
+<P><BR>
+</DL>
+<A NAME="lbAN">&nbsp;</A>
+<H2>CONCEPTS</H2>
+
+The 
+<B>stored state</B>
+
+of a site is the snapshot of the state of the site saved into the 
+storage directory (~/.sitecopy/). The 
+<B>storage file</B>
+
+is used to record this state between invocations. In update mode,
+sitecopy builds up a
+<B>files list</B>
+
+for each site by scanning the local directory, reading in the stored
+state, and comparing the two - determining which files have changed,
+which have moved, and so on.
+<P>
+<A NAME="lbAO">&nbsp;</A>
+<H2>CONFIGURATION</H2>
+
+Configuration is performed via the run control file (rcfile).  This
+file contains a set of site definitions.  A unique name is assigned to
+every site definition, which is used on the command line to refer to
+the site.
+<P>
+
+Each site definition contains the details of the server the site is
+stored on, how the site may be accessed at that server, where the site
+is held locally and remotely, and any other options for the site.
+<P>
+<A NAME="lbAP">&nbsp;</A>
+<H3>Site Definition</H3>
+
+<P>
+A site definition is made up of a series of lines:
+<P>
+<B>site </B>sitename
+
+<BR>
+
+<B>   server </B>server-name
+
+<BR>
+
+<B>   remote </B>remote-root-directory
+
+<BR>
+
+<B>   local </B>local-root-directory
+
+<BR>
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>port</B> port-number ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>username</B> username ]
+
+<BR>
+
+<BR>&nbsp;[
+<B>password</B> password ]
+
+<BR>&nbsp;[
+<B>proxy-server </B>proxy-name
+
+<BR>
+
+<B>   proxy-port </B>port-number ]
+
+<BR>&nbsp;[&nbsp;
+<B>url </B>siteURL ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>protocol </B>{ ftp | webdav } ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>ftp</B> nopasv ]
+
+<BR>
+
+<BR>&nbsp;[
+<B>ftp</B> showquit ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>ftp</B> { usecwd | nousecwd } ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>http</B> expect ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>http</B> secure ]
+
+<BR>&nbsp;[&nbsp;
+<B>safe</B> ]
+
+<BR>
+
+<BR>&nbsp;[&nbsp;
+<B>state </B>{ checksum | timesize } ]
+
+<BR>&nbsp;[&nbsp;
+<B>permissions</B> { ignore | exec | all | dir } ]
+
+<BR>&nbsp;[&nbsp;
+<B>symlinks</B> { ignore | follow | maintain } ]
+
+<BR>&nbsp;[&nbsp;
+<B>nodelete</B> ]
+
+<BR>&nbsp;[&nbsp;
+<B>nooverwrite</B> ]
+
+<BR>&nbsp;[&nbsp;
+<B>checkmoved</B> [renames] ]
+
+<BR>&nbsp;[
+<B>tempupload</B> ]
+
+<BR>&nbsp;[&nbsp;
+<B>exclude</B> pattern ]...
+
+<BR>&nbsp;[&nbsp;
+<B>ignore</B> pattern ]...
+
+<BR>&nbsp;[&nbsp;
+<B>ascii</B> pattern ]...
+
+<P>
+Anything after a hash (#) in a line is ignored as a comment.
+Values may be quoted and characters may be backslash-escaped.
+For example, to use the
+<B>exclude</B>
+
+pattern *#, use the following line:
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>*#
+
+<P><BR>
+<A NAME="lbAQ">&nbsp;</A>
+<H3>Remote Server Options</H3>
+
+The
+<B>server</B>
+
+key is used to specify the remote server the site is stored on.
+This may be either a DNS name or IP address. A connection is made
+to the default port for the protocol used, or that given by the
+<B>port</B>
+
+key.
+sitecopy supports the WebDAV or FTP protocols - the 
+<B>protocol</B>
+
+key specifies which to use, taking the value of either
+<B>webdav</B>
+
+or 
+<B>ftp</B>
+
+respectively. By default, FTP will be used.
+<P>
+The 
+<B>proxy-server</B>
+
+and
+<B>proxy-port</B>
+
+keys may be used to specify a proxy server to use. Proxy servers
+are currently only supported for WebDAV.
+<P>
+If the FTP server does not support passive (PASV) mode, then
+the key
+<B>ftp nopasv</B>
+
+should be used.  To display the message returned by the server
+on closing the connection, use the 
+<B>ftp showquit</B>
+
+option.
+If the server only supports uploading files in the current
+working directory, use the key
+<B>ftp usecwd</B>
+
+(possible symptom: &quot;overwrite permission denied&quot;). 
+Note that the remote-directory (keyword
+<B>remote</B>)
+
+must be an absolute path (starting with '/'), or
+<B>usecwd</B>
+
+will be ignored.
+<P>
+If the WebDAV server correctly supports the 100-continue
+expectation, e.g. Apache 1.3.9 and later, the key
+<B>http expect</B>
+
+should be used. Doing so can save some bandwidth and time in an
+update.
+<P>
+If the WebDAV server supports access via SSL, the key
+<B>http secure</B>
+
+can be used.  Doing so will cause the transfers between sitecopy
+and the host to be performed using an secure, encrypted link.  The
+first time SSL is used to access the server, the user will be
+prompted to verify the SSL certificate, if it's not signed by
+a CA trusted in the system's CA root bundle.
+<P>
+To authenticate the user with the server, the 
+<B>username</B>
+
+and 
+<B>password </B>
+
+keys are used. If it exists, the
+<B>~/.netrc</B>
+
+will be searched for a password if one is not specified. See
+<A HREF="http://localhost/cgi-bin/man/man2html?1+ftp">ftp</A>(1) for the syntax of this file.
+<P>
+Basic and digest authentication are supported for
+WebDAV. Note that basic authentication must not be used unless the
+connection is known to be secure.
+<P>
+The full URL that is used to access the site can optionally be
+specified in the
+<B>url</B>
+
+key. This is used only in flat list mode, so the site URL
+can be inserted in 'Recent Changes' pages. The URL must
+<I>not</I>
+
+have a trailing slash; a valid example is
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>url </B><A HREF="http://www.site.com/mysite">http://www.site.com/mysite</A>
+
+<P><BR>
+If the 
+<B>tempupload</B>
+
+option is given, new or changed files are upload with a &quot;.in.&quot; prefix,
+then moved to the true filename when the upload is complete.
+<P>
+<A NAME="lbAR">&nbsp;</A>
+<H3>File State</H3>
+
+<P>
+File state is stored in the storage files (~/.sitecopy/*), and is used
+to discover when a file has been changed.  Two methods are supported,
+and can be selected using the 
+<B>state</B>
+
+option, with either parameter:
+<B>timesize</B>
+
+(the default), and
+<B>checksum.</B>
+
+<P>
+<B>timesize</B>
+
+uses the last-modification date and the size of files to detect when
+they have changed. 
+<B>checksum</B>
+
+uses an MD5 checksum to detect any changes to the file contents.
+<P>
+Note that MD5 checksumming involves reading in the entire file, and
+is slower than simply using the last-modification date and size. It
+may be useful for instance if a versioning system is in use which 
+updates the last-modification date on a 'checkout', but this doesn't
+actually change the file contents.
+<P>
+<A NAME="lbAS">&nbsp;</A>
+<H3>Safe Mode</H3>
+
+<P>
+<B>Safe Mode</B>
+
+is enabled by using the 
+<B>safe</B>
+
+key. When enabled, each time a file is uploaded to the server,
+the modification time of the file 
+<B>as on the server</B>
+
+is recorded. Subsequently, whenever this file has been changed locally
+and is to be uploaded again, the current modification time of the file
+on the server is retrieved, and compared with the stored value. If
+these differ, then the remote copy of the file has been altered by a
+foreign party.  A warning message is issued, and your local copy of
+the file will not be uploaded over it, to prevent losing any changes.
+<P>
+Safe Mode can be used with FTP or WebDAV servers, but if Apache/mod_dav
+is used, mod_dav 0.9.11 or later is required.
+<P>
+<B>Note</B>
+
+Safe mode cannot be used in conjunction with the 
+<B>nooverwrite</B>
+
+option (see below).
+<P>
+<A NAME="lbAT">&nbsp;</A>
+<H3>File Storage Locations</H3>
+
+<P>
+The 
+<B>remote</B>
+
+key specifies the root directory of the remote copy of the site.
+It may be in the form of an absolute pathname, e.g.
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>remote </B>/www/mysite/
+
+<BR>
+
+For FTP, the directory may also be specified relative to the login<BR>
+directory, in which case it must be prefixed by &quot;~/&quot;, for example:
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>remote </B>~/public_html/
+
+<P>
+
+The<BR>
+<B>local</B>
+
+key specifies the directory in which the site is stored locally.  This
+may be given relative to your home directory (as given by the
+environment variable $HOME), again using the &quot;~/&quot; prefix.
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>local </B>~/html/foosite/
+
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>local </B>/home/fred/html/foosite/
+
+<BR>
+
+are equivalent, if $HOME is set to &quot;/home/fred&quot;.<BR>
+<P>
+For both the local and remote keywords, a trailing slash may be used,
+but is not required.
+<P>
+<A NAME="lbAU">&nbsp;</A>
+<H3>File Permissions Handling</H3>
+
+File permissions handling is dictated by the 
+<B>permissions</B>
+
+key, which may be given one of three values:
+<DL COMPACT>
+<DT><B>ignore</B>
+
+<DD>
+to ignore file permissions completely,
+<DT><B>exec</B>
+
+<DD>
+to mirror the permissions of executable files only,
+<DT><B>all</B>
+
+<DD>
+to mirror the permissions of all files.
+</DL>
+<P>
+
+This can be used, for instance, to ensure the permissions of CGI files
+are set. The option is currently ignored for WebDAV servers. For FTP
+servers, a
+<B>chmod</B>
+
+is performed remotely to set the permissions.
+<P>
+To handle permissions directories, the key:
+<BR>
+
+<B>   permissions dir</B>
+
+<BR>
+
+may be used in addition to a 
+<B>permissions</B>
+
+key of either 
+<B>exec,</B>
+
+<B>local</B>
+
+or
+<B>all.</B>
+
+Note that 
+<B>permissions all</B>
+
+does not imply 
+<B>permissions dir.</B>
+
+<P>
+<A NAME="lbAV">&nbsp;</A>
+<H3>Symbolic Link Handling</H3>
+
+<P>
+Symlinks found in the local site can be either ignored, followed, or
+maintained. In 'follow' mode, the files references by the symlinks
+will be uploaded in their place. In 'maintain' mode, the link will be
+created remotely as well, see below for more information. The mode
+used for each site is specified with the
+<B>symlinks</B>
+
+rcfile key, which may take the value of
+<B>ignore,</B>
+
+<B>follow</B>
+
+or
+<B>maintain</B>
+
+to select the mode as appropriate.
+<P>
+The default mode is
+<B>follow,</B>
+
+i.e. symbolic links found in the local site are followed.
+<P>
+<A NAME="lbAW">&nbsp;</A>
+<H3>Symbolic link Maintain Mode</H3>
+
+<P>
+This mode is currently only supported by the WebDAV driver, and will
+work only with servers which implement WebDAV Advanced Collections,
+which is a work-in-progress. The target of the link on the server is
+literally copied from the target of the symlink. Hint: you can use
+URL's if you like:
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>ln -s <A HREF="http://www.somewhere.org/">http://www.somewhere.org/</A> somewherehome</B>
+
+<P><BR>
+In this way, a &quot;302 Redirect&quot; can be easily set up from the client,
+without having to alter the server configuration.
+<P>
+<A NAME="lbAX">&nbsp;</A>
+<H3>Deleting and Moving Remote Files</H3>
+
+The 
+<B>nodelete</B>
+
+option may be used to prevent remote files from ever being
+deleted. This may be useful if you keep large amounts of data on the
+remote server which you do not need to store locally as well.
+<P>
+If your server does not allow you to upload changed files over
+existing files, then you can use the
+<B>nooverwrite</B>
+
+option. When this is used, before uploading a changed file, the
+remote file will be deleted.
+<P>
+If the 
+<B>checkmoved</B>
+
+option is used, sitecopy will look for any files which have been
+moved locally. If any are found, when the remote site is updated,
+the files will be moved remotely.
+<P>
+If the
+<B>checkmoved renames</B>
+
+option is used, sitecopy will look for any files which have been
+moved or renamed locally. This option may only be used in 
+conjunction with the
+<B>state checksum</B>
+
+option.
+<P>
+<B>WARNING</B>
+
+<P>
+If you are not using MD5 checksumming (i.e. the
+<B>state checksum</B>
+
+option) to determine file state, do NOT use the 
+<B>checkmoved</B>
+
+option if you tend to hold files in different directories with
+identical sizes, modification times and names and ever move them
+about. This seems unlikely, but don't say you haven't been warned.
+<P>
+<A NAME="lbAY">&nbsp;</A>
+<H3>Excluding Files</H3>
+
+<P>
+Files may be excluded from the files list by use of the
+<B>exclude</B>
+
+key, which accepts shell-style globbing patterns. For example, use
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>*.bak
+
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>*~
+
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>#*#
+
+<BR>
+
+to exclude all files which have a .bak extension, end in a tilde (~)<BR>
+character, or which begin and end with a a hash. Don't forget to quote
+or escape the value if it includes a hash!
+<P>
+To exclude certain files within an particular directory, simply prefix
+the pattern with the directory name - including a leading slash. For
+instance:
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>/docs/*.m4
+
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>/files/*.gz
+
+<BR>
+
+which will exclude all files with the .m4 extension in the 'docs'<BR>
+subdirectory of the site, and all files with the .gz extension in the
+files subdirectory.
+<P>
+An entire directory can also be excluded - simply use the directory
+name with no trailing slash. For example
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>/foo/bar
+
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>exclude </B>/where/else
+
+<BR>
+
+to exclude the 'foo/bar' and 'where/else' subdirectories of the site.<BR>
+<P>
+Exclude patterns are consulted when scanning the local directory, and
+when scanning the remote site during a --fetch.  Any file which
+matches any exclude pattern is not added to the files list.  This
+means that a file which has already been uploaded by sitecopy, and
+subsequently matches an exclude pattern will be deleted from the
+server.
+<P>
+<A NAME="lbAZ">&nbsp;</A>
+<H3>Ignoring Local Changes to Files</H3>
+
+<P>
+The 
+<B>ignore</B>
+
+option is used to instruct sitecopy to ignore any local changes made
+to a file. If a change is made to the contents of an ignored file,
+this file will
+<B>not</B>
+
+be uploaded by update mode. Ignored files will be created, moved
+and deleted as normal.
+<P>
+The 
+<B>ignore</B>
+
+option is used in the same way as the 
+<B>exclude</B>
+
+option.
+<P>
+Note that synchronize mode 
+<B>will</B>
+
+overwrite changes made to ignored files.
+<P>
+<A NAME="lbBA">&nbsp;</A>
+<H3>FTP Transfer Mode</H3>
+
+<P>
+To specify the FTP transfer mode for files, use the
+<B>ascii</B>
+
+key. Any files which are transferred using ASCII mode have
+CRLF/LF translation performed appropriately. For example, use
+<BR>
+
+<B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>ascii </B>*.pl
+
+<BR>
+
+to upload all files with the .pl extension as ASCII text.<BR>
+This key has no effect with WebDAV (currently).
+<P>
+<A NAME="lbBB">&nbsp;</A>
+<H2>RETURN VALUES</H2>
+
+<P>
+Return values are specified for different operation modes. If multiple
+sites are specified on the command line, the return value is in
+respect to the last site given.
+<P>
+<A NAME="lbBC">&nbsp;</A>
+<H3>Update Mode</H3>
+
+<BR>&nbsp;-1&nbsp;...&nbsp;update&nbsp;never&nbsp;even&nbsp;started&nbsp;-&nbsp;configuration&nbsp;problem
+<BR>&nbsp;&nbsp;0&nbsp;...&nbsp;update&nbsp;was&nbsp;entirely&nbsp;successful.
+<BR>&nbsp;&nbsp;1&nbsp;...&nbsp;update&nbsp;went&nbsp;wrong&nbsp;somewhere
+<BR>&nbsp;&nbsp;2&nbsp;...&nbsp;could&nbsp;not&nbsp;connect&nbsp;or&nbsp;login&nbsp;to&nbsp;server&nbsp;
+<P>
+<A NAME="lbBD">&nbsp;</A>
+<H3>List Mode (default mode of operation)</H3>
+
+<BR>&nbsp;-1&nbsp;...&nbsp;could&nbsp;not&nbsp;form&nbsp;list&nbsp;-&nbsp;configuration&nbsp;problem
+<BR>&nbsp;&nbsp;0&nbsp;...&nbsp;the&nbsp;remote&nbsp;site&nbsp;does&nbsp;not&nbsp;need&nbsp;updating
+<BR>&nbsp;&nbsp;1&nbsp;...&nbsp;the&nbsp;remote&nbsp;site&nbsp;needs&nbsp;updating
+<P>
+<A NAME="lbBE">&nbsp;</A>
+<H2>EXAMPLE RCFILE CONTENTS</H2>
+
+<P>
+<A NAME="lbBF">&nbsp;</A>
+<H3>FTP Server, Simple Usage</H3>
+
+<P>
+Fred's site is uploaded to the FTP server 'my.server.com'
+and held in the directory 'public_html', which is in the
+login directory. The site is stored locally in the 
+directory /home/fred/html.
+<P>
+site mysite
+<BR>&nbsp;&nbsp;server&nbsp;my.server.com
+<BR>&nbsp;&nbsp;url&nbsp;<A HREF="http://www.server.com/fred">http://www.server.com/fred</A>
+<BR>&nbsp;&nbsp;username&nbsp;fred
+<BR>&nbsp;&nbsp;password&nbsp;juniper
+<BR>&nbsp;&nbsp;local&nbsp;/home/fred/html/
+<BR>&nbsp;&nbsp;remote&nbsp;~/public_html/
+<P>
+<A NAME="lbBG">&nbsp;</A>
+<H3>FTP Server, Complex Usage</H3>
+
+<P>
+Here, Freda's site is uploaded to the FTP server
+'<A HREF="ftp://ftp.elsewhere.com">ftp.elsewhere.com</A>', where it is held in the directory
+/www/freda/. The local site is stored in /home/freda/sites/elsewhere/
+<P>
+site anothersite
+<BR>&nbsp;&nbsp;server&nbsp;<A HREF="ftp://ftp.elsewhere.com">ftp.elsewhere.com</A>
+<BR>&nbsp;&nbsp;username&nbsp;freda
+<BR>&nbsp;&nbsp;password&nbsp;blahblahblah
+<BR>&nbsp;&nbsp;local&nbsp;/home/freda/sites/elsewhere/
+<BR>&nbsp;&nbsp;remote&nbsp;/www/freda/
+<BR>&nbsp;&nbsp;#&nbsp;Freda&nbsp;wants&nbsp;files&nbsp;with&nbsp;a&nbsp;.bak&nbsp;extension&nbsp;or&nbsp;a&nbsp;
+<BR>&nbsp;&nbsp;#&nbsp;trailing&nbsp;~&nbsp;to&nbsp;be&nbsp;ignored:
+<BR>&nbsp;&nbsp;exclude&nbsp;*.bak
+<BR>&nbsp;&nbsp;exclude&nbsp;*~
+<P>
+<A NAME="lbBH">&nbsp;</A>
+<H3>WebDAV Server, Simple Usage</H3>
+
+<P>
+This example shows use of a WebDAV server.
+<P>
+site supersite
+<BR>&nbsp;&nbsp;server&nbsp;dav.wow.com
+<BR>&nbsp;&nbsp;protocol&nbsp;webdav
+<BR>&nbsp;&nbsp;username&nbsp;pow
+<BR>&nbsp;&nbsp;password&nbsp;zap&nbsp;
+<BR>&nbsp;&nbsp;local&nbsp;/home/joe/www/super/
+<BR>&nbsp;&nbsp;remote&nbsp;/
+<P>
+<A NAME="lbBI">&nbsp;</A>
+<H2>FILES</H2>
+
+<I>~/.sitecopyrc </I>
+
+Default run control file location.
+<BR>
+
+<I>~/.sitecopy/</I>
+
+Remote site information storage directory
+<BR>
+
+<I>~/.netrc</I>
+
+Remote server accounts information
+<BR>
+
+<P>
+<A NAME="lbBJ">&nbsp;</A>
+<H2>BUGS</H2>
+
+Known problems: Fetch + synch modes are NOT reliable for FTP.  If you
+need reliable operation of fetch or synch modes, you shouldn't be
+using sitecopy.  Try rsync instead.
+<P>
+<P>
+
+Please send bug reports and feature requests to &lt;<A HREF="mailto:sitecopy@lyra.org">sitecopy@lyra.org</A>&gt;
+rather than to the author, since the mailing list is archived and can
+be a useful resource for others.
+<P>
+<A NAME="lbBK">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="http://localhost/cgi-bin/man/man2html?1+rsync">rsync</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+ftp">ftp</A>(1), <A HREF="http://localhost/cgi-bin/man/man2html?1+mirror">mirror</A>(1)
+<P>
+<A NAME="lbBL">&nbsp;</A>
+<H2>STANDARDS</H2>
+
+<P>
+[Listed for reference only, no claim of compliance to any of the 
+below standards is made.]
+<P>
+<B>RFC 959</B> - File Transfer Protocol (FTP)
+
+<BR>
+
+<B>RFC 1521</B> - Multipurpose Internet Mail Extensions Part One
+
+<BR>
+
+<B>RFC 1945</B> - Hypertext Transfer Protocol -- HTTP/1.0
+
+<BR>
+
+<B>RFC 2396</B> - Uniform Resource Identifiers: Generic Syntax
+
+<BR>
+
+<B>RFC 2518</B> - HTTP Extensions for Distributed Authoring -- WEBDAV
+
+<BR>
+
+<B>RFC 2616</B> - Hypertext Transfer Protocol -- HTTP/1.1
+
+<BR>
+
+<B>RFC 2617</B> - HTTP Authentication
+
+<BR>
+
+<B>REC-XML</B> - Extensible Markup Language (XML) 1.0
+
+<BR>
+
+<B>REC-XML-NAMES</B> - Namespaces in XML
+
+<P>
+<A NAME="lbBM">&nbsp;</A>
+<H2>DRAFT STANDARDS</H2>
+
+<B>draft-ietf-ftpext-mlst-05.txt</B> - Extensions to FTP
+
+<BR>
+
+<B>draft-ietf-webdav-collections-protocol-03.txt</B> - WebDAV Advanced Collections Protocol
+
+<A NAME="lbBN">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Joe Orton and others.
+<BR>
+
+e-mail: <A HREF="mailto:sitecopy@lyra.org">sitecopy@lyra.org</A>
+<BR>
+
+www: <A HREF="http://www.lyra.org/sitecopy/">http://www.lyra.org/sitecopy/</A>
+<P>
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">GETTING STARTED</A><DD>
+<DL>
+<DT><A HREF="#lbAF">Introducing the Basics</A><DD>
+<DT><A HREF="#lbAG">Existing Remote Site</A><DD>
+<DT><A HREF="#lbAH">New Remote Site</A><DD>
+<DT><A HREF="#lbAI">Site Maintenance</A><DD>
+<DT><A HREF="#lbAJ">Synchronization Problems</A><DD>
+</DL>
+<DT><A HREF="#lbAK">INVOCATION</A><DD>
+<DT><A HREF="#lbAL">OPERATION MODES</A><DD>
+<DT><A HREF="#lbAM">OPTIONS</A><DD>
+<DT><A HREF="#lbAN">CONCEPTS</A><DD>
+<DT><A HREF="#lbAO">CONFIGURATION</A><DD>
+<DL>
+<DT><A HREF="#lbAP">Site Definition</A><DD>
+<DT><A HREF="#lbAQ">Remote Server Options</A><DD>
+<DT><A HREF="#lbAR">File State</A><DD>
+<DT><A HREF="#lbAS">Safe Mode</A><DD>
+<DT><A HREF="#lbAT">File Storage Locations</A><DD>
+<DT><A HREF="#lbAU">File Permissions Handling</A><DD>
+<DT><A HREF="#lbAV">Symbolic Link Handling</A><DD>
+<DT><A HREF="#lbAW">Symbolic link Maintain Mode</A><DD>
+<DT><A HREF="#lbAX">Deleting and Moving Remote Files</A><DD>
+<DT><A HREF="#lbAY">Excluding Files</A><DD>
+<DT><A HREF="#lbAZ">Ignoring Local Changes to Files</A><DD>
+<DT><A HREF="#lbBA">FTP Transfer Mode</A><DD>
+</DL>
+<DT><A HREF="#lbBB">RETURN VALUES</A><DD>
+<DL>
+<DT><A HREF="#lbBC">Update Mode</A><DD>
+<DT><A HREF="#lbBD">List Mode (default mode of operation)</A><DD>
+</DL>
+<DT><A HREF="#lbBE">EXAMPLE RCFILE CONTENTS</A><DD>
+<DL>
+<DT><A HREF="#lbBF">FTP Server, Simple Usage</A><DD>
+<DT><A HREF="#lbBG">FTP Server, Complex Usage</A><DD>
+<DT><A HREF="#lbBH">WebDAV Server, Simple Usage</A><DD>
+</DL>
+<DT><A HREF="#lbBI">FILES</A><DD>
+<DT><A HREF="#lbBJ">BUGS</A><DD>
+<DT><A HREF="#lbBK">SEE ALSO</A><DD>
+<DT><A HREF="#lbBL">STANDARDS</A><DD>
+<DT><A HREF="#lbBM">DRAFT STANDARDS</A><DD>
+<DT><A HREF="#lbBN">AUTHOR</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="http://localhost/cgi-bin/man/man2html">man2html</A>,
+using the manual pages.<BR>
+Time: 22:45:01 GMT, February 27, 2006
+</BODY>
+</HTML>

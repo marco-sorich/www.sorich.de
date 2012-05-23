@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+# compile all other stuff
+compile '*' do
+  filter :erb
+  filter :html_escape if item[:HtmlEscape]
+  #filter :maruku # if item[:markdown]
+  layout 'default'
+end
+
+
+
+# put all other stuff into output path
+# each html page as its own page
+route '*' do 
+    if item.identifier == '/' 
+        item.identifier + 'index.html' 
+    else 
+        '/' + item.identifier.gsub('/','') + '.html' 
+    end 
+end
+
+
+layout '*', :erb

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<sitestate version='1.0'>
+<options>
+ <saved-by package='sitecopy' version='0.16.2'/>
+ <state-method><state-timesize/></state-method>
+ <escaped-filenames/>
+</options>
+<items>
+<item><type><type-file/></type><filename>images/lightbox-ico-loading.gif</filename>
+<protection>700</protection><size>3990</size><modtime>1191449542</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/lightbox-btn-prev.gif</filename>
+<protection>700</protection><size>832</size><modtime>1191449542</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/lightbox-btn-next.gif</filename>
+<protection>700</protection><size>812</size><modtime>1191449542</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/lightbox-btn-close.gif</filename>
+<protection>700</protection><size>700</size><modtime>1191449542</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/lightbox-blank.gif</filename>
+<protection>700</protection><size>43</size><modtime>1143739238</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Lagerverwaltung%5ftn.jpg</filename>
+<protection>777</protection><size>48169</size><modtime>1262693661</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Lagerverwaltung.jpg</filename>
+<protection>777</protection><size>84255</size><modtime>1262692776</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/email%5f32.png</filename>
+<protection>700</protection><size>1182</size><modtime>1245796884</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Editor%5ftn.jpg</filename>
+<protection>777</protection><size>54799</size><modtime>1262693608</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Editor.jpg</filename>
+<protection>777</protection><size>81182</size><modtime>1262693673</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Deployer%5ftn.jpg</filename>
+<protection>777</protection><size>33069</size><modtime>1262693562</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Deployer.jpg</filename>
+<protection>777</protection><size>52095</size><modtime>1262691958</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/delicious%5f32.png</filename>
+<protection>700</protection><size>856</size><modtime>1245794852</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/background.png</filename>
+<protection>777</protection><size>217</size><modtime>1262611870</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Autocoder%5ftn.jpg</filename>
+<protection>777</protection><size>63758</size><modtime>1262699428</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>images/Autocoder.jpg</filename>
+<protection>777</protection><size>124784</size><modtime>1262694610</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>js/jquery.lightbox-0.5.pack.js</filename>
+<protection>700</protection><size>6277</size><modtime>1207905700</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>js/jquery.lightbox-0.5.min.js</filename>
+<protection>700</protection><size>10110</size><modtime>1207905806</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>js/jquery.lightbox-0.5.js</filename>
+<protection>700</protection><size>20075</size><modtime>1207905372</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>js/jquery.js</filename>
+<protection>700</protection><size>54075</size><modtime>1207905506</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>style/style.css</filename>
+<protection>777</protection><size>2306</size><modtime>1262847069</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>style/jquery.lightbox-0.5.css</filename>
+<protection>700</protection><size>2376</size><modtime>1207905396</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>index.html</filename>
+<protection>777</protection><size>4094</size><modtime>1262863584</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>impressum.html</filename>
+<protection>777</protection><size>5214</size><modtime>1262863584</modtime><ascii><false/></ascii></item>
+<item><type><type-file/></type><filename>danksagung.html</filename>
+<protection>777</protection><size>4764</size><modtime>1262863584</modtime><ascii><false/></ascii></item>
+<item><type><type-directory/></type><filename>images</filename>
+<protection>777</protection></item>
+<item><type><type-directory/></type><filename>js</filename>
+<protection>700</protection></item>
+<item><type><type-directory/></type><filename>style</filename>
+<protection>777</protection></item>
+</items>
+</sitestate>

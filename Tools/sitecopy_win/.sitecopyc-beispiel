@@ -1,0 +1,11 @@
+site microsoft
+	server	ftp.microsoft.com
+	username	anonymous
+	password	no@mail.com
+	local		F:\FTP-Mirror
+	remote	/Softlib
+	protocol	ftp
+	permissions	ignore
+	exclude 	*.temp
+	tempupload
+	state 	timesize
