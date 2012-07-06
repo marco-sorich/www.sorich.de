@@ -1,116 +1,35 @@
 # All files in the 'lib' directory will be loaded
 # before nanoc starts compiling.
 
-module Nanoc3::Filters
+# CAUTION: Switch editor to UTF-8 encoding for this file (only)!
+# In Vim: set enc=utf-8
 
-    class HtmlEscape < Nanoc3::Filter
+
+module Nanoc::Filters
+
+    class HtmlEscape < Nanoc::Filter
 
         identifiers :html_escape
 
         def run(content, arguments={})
 
-            # still missing
-            #gsub( '<', '&#60;').
-            #gsub( '>', '&#62;').
-            #gsub( '"', '&#34;').
+            a_uml = Regexp.new('Ã¤'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
+            o_uml = Regexp.new('Ã¶'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
+            u_uml = Regexp.new('Ã¼'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
+            a_uml_cap = Regexp.new('Ã„'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
+            o_uml_cap = Regexp.new('Ã–'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
+            u_uml_cap = Regexp.new('Ãœ'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
+            sz_lig = Regexp.new('ÃŸ'.force_encoding("utf-8"),Regexp::FIXEDENCODING)
 
-            content.
-                gsub( '&', '&#38;').
-                gsub( "'", '&#8217;').
-                gsub( '¡', '&#161;').
-                gsub( '¢', '&#162;').
-                gsub( '£', '&#163;').
-                gsub( '¤', '&#164;').
-                gsub( '¥', '&#165;').
-                gsub( '¦', '&#166;').
-                gsub( '§', '&#167;').
-                gsub( '¨', '&#168;').
-                gsub( '©', '&#169;').
-                gsub( 'ª', '&#170;').
-                gsub( '«', '&#171;').
-                gsub( '¬', '&#172;').
-                gsub( '®', '&#174;').
-                gsub( '¯', '&#175;').
-                gsub( '°', '&#176;').
-                gsub( '±', '&#177;').
-                gsub( '²', '&#178;').
-                gsub( '³', '&#179;').
-                gsub( '´', '&#180;').
-                gsub( 'µ', '&#181;').
-                gsub( '¶', '&#182;').
-                gsub( '·', '&#183;').
-                gsub( '¸', '&#184;').
-                gsub( '¹', '&#185;').
-                gsub( 'º', '&#186;').
-                gsub( '»', '&#187;').
-                gsub( '¼', '&#188;').
-                gsub( '½', '&#189;').
-                gsub( '¾', '&#190;').
-                gsub( '¿', '&#191;').
-                gsub( 'À', '&#192;').
-                gsub( 'Á', '&#193;').
-                gsub( 'Â', '&#194;').
-                gsub( 'Ã', '&#195;').
-                gsub( 'Ä', '&#196;').
-                gsub( 'Å', '&#197;').
-                gsub( 'Æ', '&#198;').
-                gsub( 'Ç', '&#199;').
-                gsub( 'È', '&#200;').
-                gsub( 'É', '&#201;').
-                gsub( 'Ê', '&#202;').
-                gsub( 'Ë', '&#203;').
-                gsub( 'Ì', '&#204;').
-                gsub( 'Í', '&#205;').
-                gsub( 'Î', '&#206;').
-                gsub( 'Ï', '&#207;').
-                gsub( 'Ð', '&#208;').
-                gsub( 'Ñ', '&#209;').
-                gsub( 'Ò', '&#210;').
-                gsub( 'Ó', '&#211;').
-                gsub( 'Ô', '&#212;').
-                gsub( 'Õ', '&#213;').
-                gsub( 'Ö', '&#214;').
-                gsub( '×', '&#215;').
-                gsub( 'Ø', '&#216;').
-                gsub( 'Ù', '&#217;').
-                gsub( 'Ú', '&#218;').
-                gsub( 'Û', '&#219;').
-                gsub( 'Ü', '&#220;').
-                gsub( 'Ý', '&#221;').
-                gsub( 'Þ', '&#222;').
-                gsub( 'ß', '&#223;').
-                gsub( 'à', '&#224;').
-                gsub( 'á', '&#225;').
-                gsub( 'â', '&#226;').
-                gsub( 'ã', '&#227;').
-                gsub( 'ä', '&#228;').
-                gsub( 'å', '&#229;').
-                gsub( 'æ', '&#230;').
-                gsub( 'ç', '&#231;').
-                gsub( 'è', '&#232;').
-                gsub( 'é', '&#233;').
-                gsub( 'ê', '&#234;').
-                gsub( 'ë', '&#235;').
-                gsub( 'ì', '&#236;').
-                gsub( 'í', '&#237;').
-                gsub( 'î', '&#238;').
-                gsub( 'ï', '&#239;').
-                gsub( 'ð', '&#240;').
-                gsub( 'ñ', '&#241;').
-                gsub( 'ò', '&#242;').
-                gsub( 'ó', '&#243;').
-                gsub( 'ô', '&#244;').
-                gsub( 'õ', '&#245;').
-                gsub( 'ö', '&#246;').
-                gsub( '÷', '&#247;').
-                gsub( 'ø', '&#248;').
-                gsub( 'ù', '&#249;').
-                gsub( 'ú', '&#250;').
-                gsub( 'û', '&#251;').
-                gsub( 'ü', '&#252;').
-                gsub( 'ý', '&#253;').
-                gsub( 'þ', '&#254;').
-                gsub( 'ÿ', '&#255;')
+            content
+                .gsub(a_uml, '&auml;')
+                .gsub(o_uml, '&ouml;')
+                .gsub(u_uml, '&uuml;')
+                .gsub(a_uml_cap, '&Auml;')
+                .gsub(o_uml_cap, '&Ouml;')
+                .gsub(u_uml_cap, '&Uuml;')
+                .gsub(sz_lig, '&szlig;')
+
         end
     end
 end
