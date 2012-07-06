@@ -1,0 +1,155 @@
+body, div, h1, h2, h3, h4, p, ul, ol, li, dl, dt, dd, img, form, fieldset, blockquote
+{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+body
+{
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    background: #c9bdb2;
+    /* for checking the borders of divs  
+    border-style: solid; border-color: #000000; border-width: 1px;
+    */
+}
+
+#header
+{
+    padding: 20px 0 20px 0;
+    text-align: center;
+}
+
+#header h1 a
+{
+    display: block;
+    /* height: 113px; */
+    color: #6b5c4e;
+    font-size: 72px;
+    text-decoration: underline;
+    text-shadow: #7b6c5e 2px 2px;  /* not compliant to CSS 2.1 but compliant to CSS 2 and 3 */
+}
+
+.horzline1
+{
+    background-color: #a99d92;
+    height: 1px;
+}
+
+.horzline2
+{
+    background-color: #f9ede2;
+    height: 1px;
+}
+
+#container
+{
+    background: #e9ddd2;
+}
+
+#content
+{
+    width: 900px;
+    margin: 0 auto;
+    font-size: 13px;
+}
+
+#portfolio
+{
+    padding: 20px 0 20px 0;
+}
+
+#portfolio h1
+{
+    margin: 20px 0 0 0;
+}
+
+#portfolio h2
+{
+    margin: 10px 0 0 0;
+}
+
+#portfolio p 
+{
+    margin: 5px 0 0 0;
+}
+
+#portfolio ul
+{
+    list-style: none;
+    margin: 40px 0 0 13px;
+}
+
+#portfolio ul li
+{
+    float: left;
+    padding: 10px;
+    margin: 0 23px 23px 0;
+    border-radius: 10px;          /* not compliant to CSS 2 but CSS 3 */
+    -moz-border-radius: 10px;     /* not compliant to CSS 2 but "official" proprietary code as prefixed by "-" */
+    -webkit-border-radius: 10px;  /* not compliant to CSS 2 but "official" proprietary code as prefixed by "-" */
+    background-color: #f9ede2;
+}
+
+#footer 
+{
+    text-align: center;
+}
+
+#footercontainer
+{
+    width: 900px;
+    margin: 0 auto;
+}
+
+#footer h2
+{
+    text-decoration: underline;
+    height: 57px;
+    margin: 20px 0 10px 0;
+}
+
+.contact
+{
+    float: left;
+    width: 50%;
+    display: block;
+    height: 40px;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 0 0 40px 0;
+}
+
+#footer a
+{
+    color: #827161;
+    text-decoration: none;
+}
+
+#footer a:hover
+{
+    color: #746150;
+}
+
+#footer p.copyright
+{
+    clear: both;
+    font-size: 11px;
+    color: #827161;
+    text-align: center;
+    margin: 0 0 40px 0;
+}
+
+.clear:after
+{
+    content: "";
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.clear
+{
+    zoom: 1;   /* not compliant to CSS 2 but needed for some IE6 hack */
+}
