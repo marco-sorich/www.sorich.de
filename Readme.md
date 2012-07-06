@@ -8,6 +8,8 @@ It is a static site, generated with help of the templating system
 ##Toolchain, needed to compile site:
 * Ruby
 * Ruby packet nanoc
+* Ruby packet w3c\_validators
+* Ruby packet nokogiri
 
 
 ##Todo:
