@@ -29,6 +29,7 @@ Following online resources are used additionally to create this site:
 
 
 ## Todo:
+* Put German "Impressum" into hidable textblock on mainpage
 * Repeat HTML and CSS validation
 * Create sitemap file
 * Do some SEO
