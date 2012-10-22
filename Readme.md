@@ -1,18 +1,19 @@
-# Sourcecode for site www.sorich.de
+# Sourcecode for site http://www.sorich.de
 
-This repository holds the source code of the site www.sorich.de.
-As this site is created by hand, the source code actually is the
-final site as well.
+This repository holds the source code of the site http://www.sorich.de. As this
+site is created by hand as a static single-page-portfolio. So this is why the
+source code is actually the site itself.
+
 
 ## Frameworks used:
+Following Javascript Frameworks are used to enhance the browser experience.
 * [jQuery](http://jquery.com/)
 * [Lightbox](http://leandrovieira.com/projects/jquery/lightbox/)
 
 
 ##Todo:
-* Put all pics on host
 * Repeat HTML and CSS validation
 * Create sitemap file
 * Do some SEO
-* Publication area on this site
-* Downloads area on this site
+* Hidable publication area on this site
+* Hidable downloads area on this site
