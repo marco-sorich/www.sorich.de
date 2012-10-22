@@ -10,7 +10,9 @@ final site as well.
 
 
 ##Todo:
-* Create Robots.txt and sitemap
-* some SEO
+* Put all pics on host
+* Repeat HTML and CSS validation
+* Create sitemap file
+* Do some SEO
 * Publication area on this site
 * Downloads area on this site
