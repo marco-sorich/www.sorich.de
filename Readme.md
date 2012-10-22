@@ -20,7 +20,7 @@ Following frameworks are used to enhance the browser experience.
 * [Lightbox](http://leandrovieira.com/projects/jquery/lightbox/): jQuery plugin for overlaying pictures
 
 
-## Online resouces used:
+## Online resources used:
 Following online resources are used additionally to create this site:
 * [How To Build Your Own Single Page Portfolio Website](http://www.blog.spoongraphics.co.uk/tutorials/how-to-build-your-own-single-page-portfolio-website)
 * [komodomedia](http://www.komodomedia.com/)
@@ -28,10 +28,5 @@ Following online resources are used additionally to create this site:
 * [Web .txt](http://www.online-marketing-txt.de)
 
 
-## Todo:
-* Put German "Impressum" into hidable textblock on mainpage
-* Repeat HTML and CSS validation
-* Create sitemap file
-* Do some SEO
-* Hidable publication area on this site
-* Hidable downloads area on this site
+PLEASE DO NOT REMOVE FOLLOWING LINE!<br/>
+vim:filetype=markdown:spell spelllang=en:nocindent:fo+=anw:nosmartindent:autoindent
