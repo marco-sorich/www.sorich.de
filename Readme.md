@@ -15,9 +15,17 @@ the host.
 
 
 ## Frameworks used:
-Following Javascript Frameworks are used to enhance the browser experience.
-* [jQuery](http://jquery.com/)
-* [Lightbox](http://leandrovieira.com/projects/jquery/lightbox/)
+Following frameworks are used to enhance the browser experience.
+* [jQuery](http://jquery.com/): General Javascript framework
+* [Lightbox](http://leandrovieira.com/projects/jquery/lightbox/): jQuery plugin for overlaying pictures
+
+
+## Online resouces used:
+Following online resources are used additionally to create this site:
+* [How To Build Your Own Single Page Portfolio Website](http://www.blog.spoongraphics.co.uk/tutorials/how-to-build-your-own-single-page-portfolio-website)
+* [komodomedia](http://www.komodomedia.com/)
+* [eRecht 24](http://www.e-recht24.de/)
+* [Web .txt](http://www.online-marketing-txt.de)
 
 
 ## Todo:
