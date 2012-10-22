@@ -10,7 +10,7 @@ Start the file index.html to view the site.
 
 
 ## Deployment
-Just upload all the content, expect for .git directory and Readme.md file), to
+Just upload all the content, expect for .git directory and Readme.md file, to
 the host.
 
 
