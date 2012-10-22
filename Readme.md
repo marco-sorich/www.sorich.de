@@ -11,6 +11,6 @@ final site as well.
 
 ##Todo:
 * Create Robots.txt and sitemap
-* SEO
-* Publication subsite
-* Downloads subsite
+* some SEO
+* Publication area on this site
+* Downloads area on this site
