@@ -28,5 +28,9 @@ Following online resources are used additionally to create this site:
 * [Web .txt](http://www.online-marketing-txt.de)
 
 
+
+
+---------------------------------------------
+
 PLEASE DO NOT REMOVE FOLLOWING LINE!<br/>
 vim:filetype=markdown:spell spelllang=en:nocindent:fo+=anw:nosmartindent:autoindent
