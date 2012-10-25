@@ -18,6 +18,7 @@ the host.
 Following frameworks are used to enhance the browser experience.
 * [jQuery](http://jquery.com/): General Javascript framework
 * [Lightbox](http://leandrovieira.com/projects/jquery/lightbox/): jQuery plugin for overlaying pictures
+* [jQuery Impromptu](http://trentrichardson.com/Impromptu/): jQuery plugin for overlaying textboxes
 
 
 ## Online resources used:
