@@ -4,13 +4,68 @@
 
     <head>
         <title>Softwareautomatisierung</title>
+
         <link href="./stylesheets/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="./stylesheets/jquery.lightbox-0.5.css" media="screen" />
         <meta name="description" content="Software development portfolio of Marco Sorich."/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <script type="text/javascript" src="./js/jquery.js"></script>
+        <script type="text/javascript" src="./js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="./js/jquery.lightbox-0.5.js"></script>
-        <script type="text/javascript"> $(function() { $('a.lightbox').lightBox(); }); </script>
+        <script type="text/javascript" src="./js/jquery-impromptu.4.0.min.js"></script>
+
+        <!-- Configuration of jQuery lightbox plugin -->
+        <script type="text/javascript">
+        $(function(){
+                $('a.lightbox').lightBox();
+                });
+        </script>
+
+        <!-- Configuration of jQuery Impromptu plugin -->
+        <script type="text/javascript">
+			function showImpressum(){
+				var txt;
+                txt = "<h1>Inhaber des Internetauftritts</h1>";
+                txt = txt + "Marco Sorich<br/>";
+                txt = txt + "Maistra&szlig;e 42<br/>";
+                txt = txt + "80337 M&uuml;nchen<br/>";
+                txt = txt + "Tel.: +49(0)172 - 101 88 72<br/>";
+                txt = txt + "Mail: <a href='mailto:marco@sorich.de'>marco@sorich.de</a>";
+                txt = txt + "<h1>Haftung</h1>";
+                txt = txt + "<h2>F&uuml;r Inhalte</h2>";
+                txt = txt + "<p>";
+                txt = txt + "Die Inhalte dieser Seiten wurden mit gr&ouml;&szlig;ter Sorgfalt erstellt. F&uuml;r die";
+                txt = txt + "Richtigkeit, Vollst&auml;ndigkeit und Aktualit&auml;t der Inhalte kann ich jedoch";
+                txt = txt + "keine Gew&auml;hr &uuml;bernehmen.";
+                txt = txt + "</p>";
+                txt = txt + "<p>";
+                txt = txt + "Als Diensteanbieter bin ich gem&auml;&szlig; § 7 Abs.1 TMG f&uuml;r eigene Inhalte auf";
+                txt = txt + "diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis";
+                txt = txt + "10 TMG bin ich als Diensteanbieter jedoch nicht verpflichtet, &uuml;bermittelte";
+                txt = txt + "oder gespeicherte fremde Informationen zu &uuml;berwachen oder nach Umst&auml;nden zu";
+                txt = txt + "forschen, die auf eine rechtswidrige T&auml;tigkeit hinweisen. Verpflichtungen";
+                txt = txt + "zur Entfernung oder Sperrung der Nutzung von Informationen nach den";
+                txt = txt + "allgemeinen Gesetzen bleiben hiervon unber&uuml;hrt. Eine diesbez&uuml;gliche Haftung";
+                txt = txt + "ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten";
+                txt = txt + "Rechtsverletzung m&ouml;glich. Bei bekannt werden von entsprechenden";
+                txt = txt + "Rechtsverletzungen werde ich diese Inhalte umgehend entfernen.";
+                txt = txt + "</p>";
+                txt = txt + "<h2>F&uuml;r Links</h2>";
+                txt = txt + "<p>";
+                txt = txt + "Das Angebot enth&auml;lt Links zu externen Webseiten Dritter, auf deren Inhalte";
+                txt = txt + "ich keinen Einfluss habe. Deshalb kann ich f&uuml;r diese fremden Inhalte auch";
+                txt = txt + "keine Gew&auml;hr &uuml;bernehmen. F&uuml;r die Inhalte der verlinkten Seiten ist stets";
+                txt = txt + "der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die";
+                txt = txt + "verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf m&ouml;gliche";
+                txt = txt + "Rechtsverst&ouml;&szlig;e &uuml;berpr&uuml;ft. Rechtswidrige Inhalte waren zum Zeitpunkt der";
+                txt = txt + "Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der";
+                txt = txt + "verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer";
+                txt = txt + "Rechtsverletzung nicht zumutbar. Bei bekannt werden von Rechtsverletzungen";
+                txt = txt + "werde; ich derartige Links umgehend entfernen.";
+                txt = txt + "</p>";
+				$.prompt(txt);
+			}
+		</script>
+
     </head>
 
 
@@ -48,8 +103,8 @@
                 <div class="contact"><a href="http://marco.sorich.de/xing" rel="me">Xing <img style="vertical-align:middle;" src="./images/1_de_btn.gif" width="85" height="23" alt="Xing Profil: Marco Sorich" /></a></div>
             </div>
             <p class="copyright">
-                &copy; Marco Sorich 2010
-                &mdash; <a href="./impressum.html">Impressum</a>
+                &copy; Marco Sorich 2012
+                &mdash; <a href="javascript:showImpressum();" title="Impressum">Impressum</a>
             </p>
         </div> <!-- Footer -->
 
